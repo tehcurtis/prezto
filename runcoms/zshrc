@@ -11,4 +11,19 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+alias be="bundle exec"
+alias rsp="rails s Puma"
+alias zr="zeus rspec"
+alias gds="git diff --cached"
+alias gaa="git add -A"
+alias gppp='git push origin "$(git-branch-current 2> /dev/null)"'
+gin() {
+      gem install "$*" --no-rdoc --no-ri
+}
 
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

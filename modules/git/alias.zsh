@@ -87,6 +87,7 @@ alias ggl='git grep --files-with-matches'
 alias ggL='git grep --files-without-matches'
 alias ggv='git grep --invert-match'
 alias ggw='git grep --word-regexp'
+alias ggn='git grep -n'
 
 # Index (i)
 alias gia='git add'

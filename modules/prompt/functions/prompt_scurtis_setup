@@ -1,0 +1,33 @@
+#
+# A simple theme that i'm experimenting with, use at your own risk
+#
+# Authors:
+#   Curtis Edmond <curtis.edmond@gmail.com>
+#
+
+function prompt_scurtis_precmd {
+  vcs_info
+}
+
+
+function prompt_scurtis_setup {
+  setopt LOCAL_OPTIONS
+  unsetopt XTRACE KSH_ARRAYS
+  prompt_opts=(cr percent subst)
+
+  autoload -Uz add-zsh-hook
+  autoload -Uz vcs_info
+
+  #add-zsh-hook precmd prompt_scurtis_precmd
+
+  zstyle ':vcs_info:*' enable git svn
+  zstyle ':vcs_info:*' branchformat '%b%{'${fg[green]}'%}:%r'
+  zstyle ':vcs_info:*' formats ' - [%b%c%u]'
+  zstyle ':vcs_info:*' unstagedstr '!'
+  zstyle ':vcs_info:*' stagedstr '+'
+
+  RPROMPT="%t %w"
+  PROMPT="%3~'${vcs_info_msg_1_}': "
+}
+
+prompt_scurtis_setup "$@"

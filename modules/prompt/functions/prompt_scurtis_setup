@@ -7,8 +7,11 @@
 
 function prompt_scurtis_precmd {
   vcs_info
-}
 
+  if (( $+functions[ruby-info] )); then
+    ruby-info
+  fi
+}
 
 function prompt_scurtis_setup {
   setopt LOCAL_OPTIONS
@@ -18,16 +21,29 @@ function prompt_scurtis_setup {
   autoload -Uz add-zsh-hook
   autoload -Uz vcs_info
 
-  #add-zsh-hook precmd prompt_scurtis_precmd
+  _prompt_and_resched() { sched +1 _prompt_and_resched; zle && zle reset-prompt }
+  _prompt_and_resched
+
+  add-zsh-hook precmd prompt_scurtis_precmd
 
   zstyle ':vcs_info:*' enable git svn
-  zstyle ':vcs_info:*' branchformat '%b%{'${fg[green]}'%}:%r'
-  zstyle ':vcs_info:*' formats ' - [%b%c%u]'
+  zstyle ':vcs_info:*' formats ' git[%F{green}%b%f%F{red}%c%u%f]'
   zstyle ':vcs_info:*' unstagedstr '!'
   zstyle ':vcs_info:*' stagedstr '+'
+  zstyle ':vcs_info:git*:*' get-revision true
+  zstyle ':vcs_info:git*:*' check-for-changes true
+  zstyle ':vcs_info:git*' actionformats "%s  %r/%S %b %m%u%c "
 
-  RPROMPT="%t %w"
-  PROMPT="%3~'${vcs_info_msg_1_}': "
+  # Set ruby-info parameters.
+  zstyle ':prezto:module:ruby:info:version' format '%F{magenta}%v%f'
+  zstyle ':prezto:module:ruby:rvm' auto-switch 'yes'
+
+  PROMPT='
+%F{cyan}%2~%f${vcs_info_msg_0_}
+${ruby_info[version]}
+> '
+  RPROMPT='%D{%a %b %d %H:%M:%S}'
+
 }
 
 prompt_scurtis_setup "$@"

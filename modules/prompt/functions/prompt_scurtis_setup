@@ -42,7 +42,6 @@ function prompt_scurtis_setup {
 %F{cyan}%2~%f${vcs_info_msg_0_}
 ${ruby_info[version]}
 > '
-  RPROMPT='%D{%a %b %d %H:%M:%S}'
 
 }
 
